@@ -59,6 +59,9 @@ class VehicleController extends Controller
                 return $row->year ? $row->year->number : '';
             });
 
+            $table->editColumn('price', function ($row) {
+                return $row->price ? $row->price : '';
+            });
             $table->addColumn('fuel_name', function ($row) {
                 return $row->fuel ? $row->fuel->name : '';
             });

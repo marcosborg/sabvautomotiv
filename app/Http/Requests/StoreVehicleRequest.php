@@ -25,6 +25,9 @@ class StoreVehicleRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'price' => [
+                'required',
+            ],
             'fuel_id' => [
                 'required',
                 'integer',

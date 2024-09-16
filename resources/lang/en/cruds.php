@@ -265,6 +265,8 @@ return [
             'description_helper'         => ' ',
             'photos'                     => 'Photos',
             'photos_helper'              => ' ',
+            'price'                      => 'Price',
+            'price_helper'               => ' ',
         ],
     ],
     'contact' => [
