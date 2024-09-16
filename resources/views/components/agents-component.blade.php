@@ -34,9 +34,3 @@
     </div>
 
 </section><!-- /Agents Section -->
-<script>
-    console.log({
-        !!$vehicles[0] !!
-    })
-
-</script>
