@@ -5,19 +5,19 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\Vehicle;
+use App\Models\Menu;
 
-class AgentsComponent extends Component
+class HeaderComponent extends Component
 {
 
-    private $vehicles;
+    private $links;
 
     /**
      * Create a new component instance.
      */
     public function __construct()
     {
-        $this->vehicles = Vehicle::orderBy('id', 'desc')->limit(8)->get()->load('car_model.brand');
+        $this->links = Menu::orderBy('position')->get();
     }
 
     /**
@@ -25,6 +25,6 @@ class AgentsComponent extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.agents-component')->with('vehicles', $this->vehicles);
+        return view('components.header-component')->with('links', $this->links);
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 Route::get('/', 'WebsiteController@index');
+Route::get('vehicle/{vehicle_id}/{slug}', 'WebsiteController@vehicle');
+Route::get('page/{vehicle_id}/{slug}', 'WebsiteController@page');
 
 Route::get('home', function () {
     if (session('status')) {

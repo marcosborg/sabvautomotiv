@@ -1,8 +1,10 @@
 <!-- Agents Section -->
-<section id="agents" class="agents section">
+<section id="agents" class="agents section" style="padding-bottom: 150px;">
 
     <!-- Section Title -->
-    <div class="container section-title" data-aos="fade-up">
+    <div class="container section-title" data-aos="fade-up" style="
+    margin-bottom: -150px;
+">
         <h2>Latest stock</h2>
     </div><!-- End Section Title -->
 
@@ -10,136 +12,31 @@
 
         <div class="row gy-5">
 
+            @foreach ($vehicles as $vehicle)
             <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
                 <div class="member">
-                    <div class="pic"><img src="/website/assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
+                    <div class="pic"><img src="{{ $vehicle->photos[0]->getUrl() }}" class="img-fluid" alt=""></div>
                     <div class="member-info">
-                        <h4>Walter White</h4>
-                        <span>Chief Executive Officer</span>
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter-x"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
+                        <h3>{{ $vehicle->car_model->brand->name }} {{ $vehicle->car_model->name }}</h3>
+                        <span>{{ $vehicle->type }}</span>
+                        <h4>{{ $vehicle->price }}€</h4>
+                        <div class="d-grid gap-2">
+                            <a href="/vehicle/{{ $vehicle->id }}/{{ Str::slug($vehicle->car_model->brand->name . ' ' . $vehicle->car_model->name . ' ' . $vehicle->type) }}" class="btn btn-theme btn-sm">View</a>
                         </div>
                     </div>
                 </div>
             </div><!-- End Team Member -->
+            @endforeach
 
-            <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-                <div class="member">
-                    <div class="pic"><img src="/website/assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
-                    <div class="member-info">
-                        <h4>Sarah Jhonson</h4>
-                        <span>Rent Manager</span>
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter-x"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Team Member -->
-
-            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-                <div class="member">
-                    <div class="pic"><img src="/website/assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
-                    <div class="member-info">
-                        <h4>William Anderson</h4>
-                        <span>Sale manager<br></span>
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter-x"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Team Member -->
-
-            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-                <div class="member">
-                    <div class="pic"><img src="/website/assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
-                    <div class="member-info">
-                        <h4>William Anderson</h4>
-                        <span>Sale manager<br></span>
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter-x"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Team Member -->
-
-            <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
-                <div class="member">
-                    <div class="pic"><img src="/website/assets/img/team/team-1.jpg" class="img-fluid" alt=""></div>
-                    <div class="member-info">
-                        <h4>Walter White</h4>
-                        <span>Chief Executive Officer</span>
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter-x"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Team Member -->
-
-            <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
-                <div class="member">
-                    <div class="pic"><img src="/website/assets/img/team/team-2.jpg" class="img-fluid" alt=""></div>
-                    <div class="member-info">
-                        <h4>Sarah Jhonson</h4>
-                        <span>Rent Manager</span>
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter-x"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Team Member -->
-
-            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-                <div class="member">
-                    <div class="pic"><img src="/website/assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
-                    <div class="member-info">
-                        <h4>William Anderson</h4>
-                        <span>Sale manager<br></span>
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter-x"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Team Member -->
-
-            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
-                <div class="member">
-                    <div class="pic"><img src="/website/assets/img/team/team-3.jpg" class="img-fluid" alt=""></div>
-                    <div class="member-info">
-                        <h4>William Anderson</h4>
-                        <span>Sale manager<br></span>
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter-x"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- End Team Member -->
 
         </div>
 
     </div>
 
 </section><!-- /Agents Section -->
+<script>
+    console.log({
+        !!$vehicles[0] !!
+    })
+
+</script>
