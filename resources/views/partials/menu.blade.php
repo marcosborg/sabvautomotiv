@@ -174,6 +174,36 @@
                 </a>
             </li>
         @endcan
+        @can('slide_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.slides.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/slides") || request()->is("admin/slides/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fab fa-slideshare c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.slide.title') }}
+                </a>
+            </li>
+        @endcan
+        @can('service_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.services.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/services") || request()->is("admin/services/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-list c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.service.title') }}
+                </a>
+            </li>
+        @endcan
+        @can('menu_access')
+            <li class="c-sidebar-nav-item">
+                <a href="{{ route("admin.menus.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/menus") || request()->is("admin/menus/*") ? "c-active" : "" }}">
+                    <i class="fa-fw fas fa-bars c-sidebar-nav-icon">
+
+                    </i>
+                    {{ trans('cruds.menu.title') }}
+                </a>
+            </li>
+        @endcan
         @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
             @can('profile_password_edit')
                 <li class="c-sidebar-nav-item">

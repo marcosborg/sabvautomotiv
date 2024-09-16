@@ -1,7 +1,8 @@
 <?php
 
-Route::redirect('/', '/login');
-Route::get('/home', function () {
+Route::get('/', 'WebsiteController@index');
+
+Route::get('home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
     }
@@ -70,6 +71,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Contact
     Route::delete('contacts/destroy', 'ContactController@massDestroy')->name('contacts.massDestroy');
     Route::resource('contacts', 'ContactController');
+
+    // Slide
+    Route::delete('slides/destroy', 'SlideController@massDestroy')->name('slides.massDestroy');
+    Route::post('slides/media', 'SlideController@storeMedia')->name('slides.storeMedia');
+    Route::post('slides/ckmedia', 'SlideController@storeCKEditorImages')->name('slides.storeCKEditorImages');
+    Route::resource('slides', 'SlideController');
+
+    // Service
+    Route::delete('services/destroy', 'ServiceController@massDestroy')->name('services.massDestroy');
+    Route::resource('services', 'ServiceController');
+
+    // Menu
+    Route::delete('menus/destroy', 'MenuController@massDestroy')->name('menus.massDestroy');
+    Route::resource('menus', 'MenuController');
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
 });

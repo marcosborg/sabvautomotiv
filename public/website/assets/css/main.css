@@ -22,7 +22,7 @@
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #444444; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #1b1b1b; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #2eca6a; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --accent-color: #cc6600; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
@@ -158,6 +158,7 @@ h6 {
 .header .logo img {
   max-height: 32px;
   margin-right: 8px;
+  width: 100%;
 }
 
 .header .logo h1 {
@@ -663,7 +664,7 @@ section,
 
 .hero .carousel {
   width: 100%;
-  min-height: 100vh;
+  min-height: 60vh;
   padding: 0;
   margin: 0;
   background-color: var(--background-color);
@@ -801,6 +802,14 @@ section,
 .hero .carousel-indicators .active {
   background-color: var(--accent-color);
   width: 40px;
+}
+
+/*--------------------------------------------------------------
+# Search Section
+--------------------------------------------------------------*/
+
+section#search-section {
+  background-color: #eeeeee;
 }
 
 /*--------------------------------------------------------------
@@ -1715,9 +1724,12 @@ section,
   color: var(--accent-color);
 }
 
-/*--------------------------------------------------------------
-# Starter Section Section
---------------------------------------------------------------*/
-.starter-section {
-  /* Add your styles here */
+.btn {
+  background-color: var(--accent-color);
+  color: #ffffff;
+}
+
+.btn:hover {
+  background-color: #9e4f00;
+  color: #ffffff;
 }
