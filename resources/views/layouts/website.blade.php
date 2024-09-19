@@ -103,12 +103,16 @@
     <!-- Preloader -->
     <div id="preloader"></div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
     <!-- Vendor JS Files -->
     <script src="/website/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/website/assets/vendor/php-email-form/validate.js"></script>
     <script src="/website/assets/vendor/aos/aos.js"></script>
     <script src="/website/assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="/website/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gasparesganga-jquery-loading-overlay@2.1.7/dist/loadingoverlay.min.js"></script>
 
     <!-- Main JS File -->
     <script src="/website/assets/js/main.js"></script>

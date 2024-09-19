@@ -13,6 +13,7 @@ class SearchSectionComponent extends Component
 
     private $brands;
     private $car_models;
+    private $brand_id;
 
     /**
      * Create a new component instance.
@@ -20,7 +21,11 @@ class SearchSectionComponent extends Component
     public function __construct()
     {
         $this->brands = Brand::orderBy('name')->get();
-        $this->car_models = CarModel::orderBy('name')->get();
+        $this->car_models = [];
+        if (session()->has('brand_id')) {
+            $this->brand_id = session()->get('brand_id');
+            $this->car_models = CarModel::where('brand_id', $this->brand_id)->orderBy('name')->get();
+        }
     }
 
     /**
@@ -30,7 +35,8 @@ class SearchSectionComponent extends Component
     {
         return view('components.search-section-component')->with([
             'brands' => $this->brands,
-            'car_models' => $this->car_models
+            'car_models' => $this->car_models,
+            'brand_id' => $this->brand_id
         ]);
     }
 }

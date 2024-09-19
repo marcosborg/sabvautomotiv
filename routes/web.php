@@ -2,7 +2,13 @@
 
 Route::get('/', 'WebsiteController@index');
 Route::get('vehicle/{vehicle_id}/{slug}', 'WebsiteController@vehicle');
+Route::get('vehicles/{brand_id}/{car_model_id}/{brand_slug}/{car_model_slug}', 'WebsiteController@vehicles');
 Route::get('page/{vehicle_id}/{slug}', 'WebsiteController@page');
+
+Route::prefix('search-section')->group(function () {
+    Route::get('get-models/{brand_id}', 'SearchSectionController@getModels');
+    Route::post('search', 'SearchSectionController@search');
+});
 
 Route::get('home', function () {
     if (session('status')) {

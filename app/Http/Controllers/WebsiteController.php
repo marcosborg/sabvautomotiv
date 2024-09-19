@@ -28,4 +28,24 @@ class WebsiteController extends Controller
 
         return view('website.page', compact('page'));
     }
+
+    public function vehicles($brand_id, $car_model_id, $brand_slug, $car_model_slug)
+    {
+        if ($brand_id == 0) {
+            //ALL CARS
+            $vehicles = Vehicle::orderBy('id', 'desc')->get()->load('car_model.brand');
+        } elseif ($brand_id != 0 && $car_model_id == 0) {
+            //ALL CARS FROM A BRAND
+            $vehicles = Vehicle::whereHas('car_model', function ($query) use ($brand_id) {
+                $query->where('brand_id', $brand_id);
+            })->orderBy('id', 'desc')->get()->load('car_model.brand');
+        } else {
+            //CARS FROM A MODEL
+            $vehicles = Vehicle::where([
+                'car_model_id' => $brand_id
+            ])->orderBy('id', 'desc')->get()->load('car_model.brand');
+        }
+
+        return view('website.vehicles', compact('vehicles'));
+    }
 }
