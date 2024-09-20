@@ -872,7 +872,7 @@ section#search-section {
 --------------------------------------------------------------*/
 .agents .member {
   position: relative;
-  margin-top: 70px;
+  margin-bottom: 120px;
 }
 
 .agents .member .pic {
@@ -1736,4 +1736,13 @@ section#search-section {
 .btn:hover {
   background-color: #9e4f00;
   color: #ffffff;
+}
+
+.text-bg-theme {
+  color: #fff !important;
+  background-color: var(--accent-color) !important;
+}
+
+.form-group {
+  margin: 0 0 10px 0;
 }

@@ -16,9 +16,7 @@ class Brand extends Model implements HasMedia
 
     public $table = 'brands';
 
-    protected $appends = [
-        'logo',
-    ];
+    protected $appends = ['logo'];
 
     protected $dates = [
         'created_at',
@@ -54,5 +52,10 @@ class Brand extends Model implements HasMedia
         }
 
         return $file;
+    }
+
+    public function car_models()
+    {
+        return $this->hasMany(CarModel::class);
     }
 }

@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Vehicle;
+use App\Models\Brand;
+use App\Models\CarModel;
+use App\Models\Fuel;
+use App\Models\Transmission;
+use App\Models\Year;
+use Illuminate\Http\Request;
 use App\Models\ContentPage;
 
 class WebsiteController extends Controller
 {
+
     public function index()
     {
         return view('website.index');
@@ -31,6 +37,11 @@ class WebsiteController extends Controller
 
     public function vehicles($brand_id, $car_model_id, $brand_slug, $car_model_slug)
     {
+        session()->put([
+            'brand_id' => $brand_id,
+            'car_model_id' => $car_model_id
+        ]);
+
         if ($brand_id == 0) {
             //ALL CARS
             $vehicles = Vehicle::orderBy('id', 'desc')->get()->load('car_model.brand');
@@ -46,6 +57,12 @@ class WebsiteController extends Controller
             ])->orderBy('id', 'desc')->get()->load('car_model.brand');
         }
 
-        return view('website.vehicles', compact('vehicles'));
+        $brands = Brand::all();
+        $models = CarModel::all();
+        $years = Year::all();
+        $fuels = Fuel::all();
+        $transmissions = Transmission::all();
+
+        return view('website.vehicles', compact('vehicles', 'brands', 'models', 'years', 'fuels', 'transmissions'));
     }
 }

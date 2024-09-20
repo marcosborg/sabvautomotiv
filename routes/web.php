@@ -2,7 +2,11 @@
 
 Route::get('/', 'WebsiteController@index');
 Route::get('vehicle/{vehicle_id}/{slug}', 'WebsiteController@vehicle');
-Route::get('vehicles/{brand_id}/{car_model_id}/{brand_slug}/{car_model_slug}', 'WebsiteController@vehicles');
+Route::prefix('vehicles')->group(function() {
+    Route::get('{brand_id}/{car_model_id}/{brand_slug}/{car_model_slug}', 'WebsiteController@vehicles');
+    Route::get('ajax', 'WebsiteController@ajax');
+});
+
 Route::get('page/{vehicle_id}/{slug}', 'WebsiteController@page');
 
 Route::prefix('search-section')->group(function () {
