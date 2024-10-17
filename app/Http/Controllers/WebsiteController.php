@@ -10,6 +10,7 @@ use App\Models\Transmission;
 use App\Models\Year;
 use Illuminate\Http\Request;
 use App\Models\ContentPage;
+use Illuminate\Support\Str;
 
 class WebsiteController extends Controller
 {
@@ -42,27 +43,71 @@ class WebsiteController extends Controller
             'car_model_id' => $car_model_id
         ]);
 
-        if ($brand_id == 0) {
+        return view('website.vehicles', compact('brand_id', 'car_model_id'));
+    }
+
+    public function ajax($brand_id, $car_model_id, $year_id, $fuel_id, $transmission_id)
+    {
+        $filter = [];
+        if ($year_id != 0) {
+            $filter['year_id'] = $year_id;
+        }
+        if ($fuel_id != 0) {
+            $filter['fuel_id'] = $fuel_id;
+        }
+        if ($transmission_id != 0) {
+            $filter['transmission_id'] = $transmission_id;
+        }
+
+        if ($brand_id == 0 && $car_model_id == 0) {
             //ALL CARS
-            $vehicles = Vehicle::orderBy('id', 'desc')->get()->load('car_model.brand');
+            $vehicles = Vehicle::orderBy('id', 'desc')
+                ->where($filter)
+                ->get()
+                ->load('car_model.brand');
+            $models = CarModel::all();
         } elseif ($brand_id != 0 && $car_model_id == 0) {
             //ALL CARS FROM A BRAND
             $vehicles = Vehicle::whereHas('car_model', function ($query) use ($brand_id) {
                 $query->where('brand_id', $brand_id);
-            })->orderBy('id', 'desc')->get()->load('car_model.brand');
+            })
+                ->where($filter)
+                ->orderBy('id', 'desc')
+                ->get()
+                ->load('car_model.brand');
+            $models = CarModel::where('brand_id', $brand_id)->get();
+        } elseif ($car_model_id != 0) {
+            $model = CarModel::find($car_model_id);
+            $brand_id = $model->brand_id;
+            $vehicles = Vehicle::where([
+                'car_model_id' => $car_model_id
+            ])
+                ->where($filter)
+                ->orderBy('id', 'desc')
+                ->get()
+                ->load('car_model.brand');
+            $models = CarModel::where('brand_id', $brand_id)->get();
         } else {
             //CARS FROM A MODEL
             $vehicles = Vehicle::where([
-                'car_model_id' => $brand_id
-            ])->orderBy('id', 'desc')->get()->load('car_model.brand');
+                'car_model_id' => $car_model_id
+            ])
+                ->where($filter)
+                ->orderBy('id', 'desc')
+                ->get()
+                ->load('car_model.brand');
+            $models = CarModel::all();
         }
 
         $brands = Brand::all();
-        $models = CarModel::all();
         $years = Year::all();
         $fuels = Fuel::all();
         $transmissions = Transmission::all();
 
-        return view('website.vehicles', compact('vehicles', 'brands', 'models', 'years', 'fuels', 'transmissions'));
+        $brand = Brand::find($brand_id);
+        $car_model = CarModel::find($car_model_id);
+        $url = '/vehicles/' . $brand_id . '/' . $car_model_id . '/' . ($brand ? Str::slug($brand->name) : 'all-brands') . '/' . ($car_model ? Str::slug($car_model->name) : 'all-models');
+
+        return view('website.ajax', compact('vehicles', 'brands', 'models', 'years', 'fuels', 'transmissions', 'brand_id', 'car_model_id', 'year_id', 'fuel_id', 'transmission_id', 'url'));
     }
 }
