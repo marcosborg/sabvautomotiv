@@ -9,4 +9,6 @@
 
 <x-services-component />
 
+<x-contact-component />
+
 @endsection

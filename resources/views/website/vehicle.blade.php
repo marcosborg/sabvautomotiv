@@ -79,7 +79,39 @@
                         <li><strong>CO2 Emissions:</strong> {{ $vehicle->co_2_emissions }}</li>
                     </ul>
 
-                    
+                    <button class="btn btn-theme btn-lg" data-bs-toggle="modal" data-bs-target="#contact_vehicle">Contact for vehicle</button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="contact_vehicle" tabindex="-1" aria-labelledby="contact_vehicle_label" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="contact_vehicle_label">Contact for vehicle</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body row">
+                                    <div class="col-md-12 form-group">
+                                        <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                                    </div>
+
+                                    <div class="col-md-12 form-group">
+                                        <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-theme">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,6 +125,7 @@
     #vehicle {
         padding-top: 150px;
     }
+
     /* Main Swiper */
     .main-swiper {
         width: 100%;

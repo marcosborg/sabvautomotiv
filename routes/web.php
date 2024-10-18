@@ -14,6 +14,10 @@ Route::prefix('search-section')->group(function () {
     Route::post('search', 'SearchSectionController@search');
 });
 
+Route::prefix('forms')->group(function() {
+    Route::post('contact', 'FormsController@contact');
+});
+
 Route::get('home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
