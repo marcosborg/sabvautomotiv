@@ -10,7 +10,7 @@
         <div class="row gy-4 justify-content-md-center">
 
             <div class="col-md-6">
-                <form action="/forms/contact" method="post" data-aos="fade-up" data-aos-delay="200">
+                <form action="/forms/contact" id="contact_form" method="post" data-aos="fade-up" data-aos-delay="200">
                     @csrf
                     <div class="row gy-4">
 
@@ -45,6 +45,21 @@
 </section><!-- /Contact Section -->
 @section('scripts')
     <script>
-        
+        (() => {
+            $('#contact_form').ajaxForm({
+                beforeSubmit: () => {
+                    $('#contact').LoadingOverlay('show');
+                },
+                success: (resp) => {
+                    $('#contact').LoadingOverlay('hide');
+                    Swal.fire("Send successfuly!").then(() => {
+                        location.reload();
+                    });
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            }); 
+        })();
     </script>
 @endsection

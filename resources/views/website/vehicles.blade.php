@@ -14,6 +14,7 @@
         <div class="row" id=ajax></div>
     </div>
 </section>
+
 @endsection
 @section('scripts')
 <script>
