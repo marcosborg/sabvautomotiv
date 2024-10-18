@@ -19,6 +19,8 @@ Route::prefix('forms')->group(function() {
     Route::post('vehicle_contact', 'FormsController@vehicleContact');
 });
 
+Route::get('/pdf/{vehicle_id}', 'PdfController@index');
+
 Route::get('home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));

@@ -91,6 +91,8 @@
                     </ul>
 
                     <button class="btn btn-theme btn-lg" data-bs-toggle="modal" data-bs-target="#contact_vehicle">Contact for vehicle</button>
+                    <br>
+                    <a href="/pdf/{{ $vehicle->id }}" target="_new" class="btn btn-primary mt-4">Make PDF</a>
 
                     <!-- Modal -->
                     <div class="modal fade" id="contact_vehicle" tabindex="-1" aria-labelledby="contact_vehicle_label" aria-hidden="true">

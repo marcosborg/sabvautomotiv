@@ -1762,3 +1762,7 @@ section#search-section {
 section#contact {
   background: #dddddd;
 }
+
+.btn-primary {
+  background: #555555;
+}
