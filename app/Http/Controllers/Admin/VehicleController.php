@@ -51,6 +51,9 @@ class VehicleController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
+            $table->editColumn('api', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->api ? 'checked' : null) . '>';
+            });
             $table->addColumn('car_model_name', function ($row) {
                 return $row->car_model ? $row->car_model->name : '';
             });
@@ -121,7 +124,7 @@ class VehicleController extends Controller
                 return implode(' ', $links);
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'car_model', 'year', 'fuel', 'transmission', 'photos']);
+            $table->rawColumns(['actions', 'placeholder', 'api', 'car_model', 'year', 'fuel', 'transmission', 'photos']);
 
             return $table->make(true);
         }

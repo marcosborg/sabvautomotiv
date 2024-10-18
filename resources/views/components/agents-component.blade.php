@@ -19,7 +19,7 @@
                     <div class="member-info">
                         <h3>{{ $vehicle->car_model->brand->name }} {{ $vehicle->car_model->name }}</h3>
                         <span>{{ $vehicle->type }}</span>
-                        <h4>{{ $vehicle->price }}€</h4>
+                        <h4>{{ number_format($vehicle->price, 0, ',', '.') }}€</h4>
                         <div class="d-grid gap-2">
                             <a href="/vehicle/{{ $vehicle->id }}/{{ Str::slug($vehicle->car_model->brand->name . ' ' . $vehicle->car_model->name . ' ' . $vehicle->type) }}" class="btn btn-theme btn-sm">View</a>
                         </div>

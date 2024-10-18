@@ -606,8 +606,8 @@ h6 {
 }
 
 .page-title nav {
-  background-color: color-mix(in srgb, var(--default-color), transparent 95%);
-  padding: 20px 0;
+  background-color: transparent;
+  padding: 0 0 20px 0;
 }
 
 .page-title nav ol {
@@ -617,6 +617,7 @@ h6 {
   margin: 0;
   font-size: 16px;
   font-weight: 600;
+  padding: 0;
 }
 
 .page-title nav ol li+li {

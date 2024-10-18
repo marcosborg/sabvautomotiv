@@ -23,7 +23,7 @@
     <link href="/website/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Main CSS File -->
-    <link href="/website/assets/css/main.css?v=1.0" rel="stylesheet">
+    <link href="/website/assets/css/main.css?v=1.1" rel="stylesheet">
 
     @yield('styles')
 

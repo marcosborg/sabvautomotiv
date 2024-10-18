@@ -2,6 +2,17 @@
 @section('content')
 <section id="vehicle">
     <div class="container">
+        <div class="page-title" data-aos="fade">
+            <nav class="breadcrumbs">
+                <div class="container">
+                    <ol>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/vehicles/0/0/all-brands/all-models">Vehicles</a></li>
+                        <li class="current">{{ $vehicle->car_model->brand->name }} {{ $vehicle->car_model->name }} - {{ $vehicle->year->number }}</li>
+                    </ol>
+                </div>
+            </nav>
+        </div>
         <div class="row">
             <div class="col-md-8">
                 <!-- Main Slider -->
@@ -43,7 +54,7 @@
                     <h2>{{ $vehicle->car_model->brand->name }} {{ $vehicle->car_model->name }} - {{ $vehicle->year->number }}</h2>
 
                     <!-- Price -->
-                    <p><strong>Price:</strong> {{ number_format($vehicle->price, 2) }}€</p>
+                    <p><strong>Price:</strong> {{ number_format($vehicle->price, 0, ',', '.') }}€</p>
 
                     <!-- Basic Info -->
                     <ul class="list-unstyled">
@@ -89,26 +100,34 @@
                                     <h1 class="modal-title fs-5" id="contact_vehicle_label">Contact for vehicle</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body row">
-                                    <div class="col-md-12 form-group">
-                                        <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                                    </div>
+                                <form action="/forms/vehicle_contact" method="post" id="vehicle_contact">
+                                    <input type="hidden" name="vehicle_id" value="{{ $vehicle->id }}">
+                                    @csrf
+                                    <div class="modal-body row">
+                                        <div class="col-md-12 form-group">
+                                            <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                                        </div>
 
-                                    <div class="col-md-12 form-group">
-                                        <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                                    </div>
+                                        <div class="col-md-12 form-group">
+                                            <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                                        </div>
 
-                                    <div class="col-md-12 form-group">
-                                        <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                                    </div>
+                                        <div class="col-md-12 form-group">
+                                            <input type="text" class="form-control" name="phone" placeholder="Your Phone Number" required="">
+                                        </div>
 
-                                    <div class="col-md-12 form-group">
-                                        <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                                        <div class="col-md-12 form-group">
+                                            <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                                        </div>
+
+                                        <div class="col-md-12 form-group">
+                                            <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-theme">Send</button>
-                                </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-theme">Send</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -238,6 +257,23 @@
             swiper: thumbnailSwiper
         , }
     , });
+
+    $(() => {
+        $('#vehicle_contact').ajaxForm({
+            beforeSubmit: () => {
+                $.LoadingOverlay('show');
+            }
+            , success: () => {
+                $.LoadingOverlay('hide');
+                Swal.fire("Send successfuly!").then(() => {
+                    location.reload();
+                });
+            }
+            , error: (error) => {
+                console.log(error);
+            }
+        });
+    });
 
 </script>
 @endsection

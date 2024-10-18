@@ -65,7 +65,7 @@ class WebsiteController extends Controller
                 ->where($filter)
                 ->get()
                 ->load('car_model.brand');
-            $models = CarModel::all();
+            $models = CarModel::orderBy('name')->get();
         } elseif ($brand_id != 0 && $car_model_id == 0) {
             //ALL CARS FROM A BRAND
             $vehicles = Vehicle::whereHas('car_model', function ($query) use ($brand_id) {
@@ -75,7 +75,7 @@ class WebsiteController extends Controller
                 ->orderBy('id', 'desc')
                 ->get()
                 ->load('car_model.brand');
-            $models = CarModel::where('brand_id', $brand_id)->get();
+            $models = CarModel::where('brand_id', $brand_id)->orderBy('name')->get();
         } elseif ($car_model_id != 0) {
             $model = CarModel::find($car_model_id);
             $brand_id = $model->brand_id;
@@ -86,7 +86,7 @@ class WebsiteController extends Controller
                 ->orderBy('id', 'desc')
                 ->get()
                 ->load('car_model.brand');
-            $models = CarModel::where('brand_id', $brand_id)->get();
+            $models = CarModel::where('brand_id', $brand_id)->orderBy('name')->get();
         } else {
             //CARS FROM A MODEL
             $vehicles = Vehicle::where([
@@ -96,13 +96,13 @@ class WebsiteController extends Controller
                 ->orderBy('id', 'desc')
                 ->get()
                 ->load('car_model.brand');
-            $models = CarModel::all();
+            $models = CarModel::orderBy('name')->get();
         }
 
-        $brands = Brand::all();
-        $years = Year::all();
-        $fuels = Fuel::all();
-        $transmissions = Transmission::all();
+        $brands = Brand::orderBy('name')->get();
+        $years = Year::orderBy('number', 'desc')->get();
+        $fuels = Fuel::orderBy('name')->get();
+        $transmissions = Transmission::orderBy('name')->get();
 
         $brand = Brand::find($brand_id);
         $car_model = CarModel::find($car_model_id);

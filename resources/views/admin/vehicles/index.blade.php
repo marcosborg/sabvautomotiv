@@ -25,6 +25,9 @@
                         {{ trans('cruds.vehicle.fields.id') }}
                     </th>
                     <th>
+                        {{ trans('cruds.vehicle.fields.api') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.vehicle.fields.car_model') }}
                     </th>
                     <th>
@@ -90,6 +93,8 @@
                     </td>
                     <td>
                         <input class="search" type="text" placeholder="{{ trans('global.search') }}">
+                    </td>
+                    <td>
                     </td>
                     <td>
                         <select class="search">
@@ -223,6 +228,7 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
+{ data: 'api', name: 'api' },
 { data: 'car_model_name', name: 'car_model.name' },
 { data: 'year_number', name: 'year.number' },
 { data: 'price', name: 'price' },

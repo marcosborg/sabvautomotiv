@@ -27,6 +27,7 @@ class Vehicle extends Model implements HasMedia
     ];
 
     public static $searchable = [
+        'api',
         'type',
         'bodywork',
         'power',
@@ -37,6 +38,7 @@ class Vehicle extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'api',
         'car_model_id',
         'year_id',
         'price',

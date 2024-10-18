@@ -10,6 +10,19 @@
         <form method="POST" action="{{ route("admin.vehicles.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
+                <div class="form-check {{ $errors->has('api') ? 'is-invalid' : '' }}">
+                    <input type="hidden" name="api" value="0">
+                    <input class="form-check-input" type="checkbox" name="api" id="api" value="1" {{ old('api', 0) == 1 ? 'checked' : '' }}>
+                    <label class="form-check-label" for="api">{{ trans('cruds.vehicle.fields.api') }}</label>
+                </div>
+                @if($errors->has('api'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('api') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.vehicle.fields.api_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="car_model_id">{{ trans('cruds.vehicle.fields.car_model') }}</label>
                 <select class="form-control select2 {{ $errors->has('car_model') ? 'is-invalid' : '' }}" name="car_model_id" id="car_model_id" required>
                     @foreach($car_models as $id => $entry)

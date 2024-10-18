@@ -25,6 +25,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.vehicle.fields.api') }}
+                        </th>
+                        <td>
+                            <input type="checkbox" disabled="disabled" {{ $vehicle->api ? 'checked' : '' }}>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.vehicle.fields.car_model') }}
                         </th>
                         <td>

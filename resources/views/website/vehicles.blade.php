@@ -8,8 +8,8 @@
 @section('content')
 <section id="agents" class="agents section" style="padding-top: 150px;">
     <div class="container">
-        <div class="container section-title" data-aos="fade-up" style="padding-bottom: 0px;">
-            <h2>Results</h2>
+        <div class="container section-title" data-aos="fade-up">
+            <h2>Vehicles</h2>
         </div>
         <div class="row" id=ajax></div>
     </div>

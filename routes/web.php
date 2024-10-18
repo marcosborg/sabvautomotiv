@@ -16,6 +16,7 @@ Route::prefix('search-section')->group(function () {
 
 Route::prefix('forms')->group(function() {
     Route::post('contact', 'FormsController@contact');
+    Route::post('vehicle_contact', 'FormsController@vehicleContact');
 });
 
 Route::get('home', function () {
