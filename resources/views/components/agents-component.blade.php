@@ -1,5 +1,5 @@
 <!-- Agents Section -->
-<section id="agents" class="agents section" style="padding-bottom: 150px;">
+<section id="agents" class="agents section">
 
     <!-- Section Title -->
     <div class="container section-title" data-aos="fade-up" style="
