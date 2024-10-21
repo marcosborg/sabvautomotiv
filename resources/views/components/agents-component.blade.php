@@ -2,9 +2,7 @@
 <section id="agents" class="agents section">
 
     <!-- Section Title -->
-    <div class="container section-title" data-aos="fade-up" style="
-    margin-bottom: -150px;
-">
+    <div class="container section-title" data-aos="fade-up">
         <h2>Latest stock</h2>
     </div><!-- End Section Title -->
 
