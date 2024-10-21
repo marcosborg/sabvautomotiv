@@ -31,6 +31,6 @@ class PdfController extends Controller
             ]);
 
         // Retornando o PDF para download
-        return $pdf->download($vehicle->car_model->brand->name . ' ' . $vehicle->car_model->name . ' - ID' . $vehicle->id . '.pdf');
+        return $pdf->stream($vehicle->car_model->brand->name . ' ' . $vehicle->car_model->name . ' - ID' . $vehicle->id . '.pdf');
     }
 }
