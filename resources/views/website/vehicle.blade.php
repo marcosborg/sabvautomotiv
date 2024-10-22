@@ -115,7 +115,19 @@
                                         </div>
 
                                         <div class="col-md-12 form-group">
-                                            <input type="text" class="form-control" name="phone" placeholder="Your Phone Number" required="">
+                                            <select class="form-control" name="country" id="country" required="" onchange="selectCountry()">
+                                                <option selected disabled>Select</option>
+                                                @foreach ($countries as $country)
+                                                    <option value="{{ $country->name }}|{{ $country->short_code }}">{{ $country->name }} ({{ $country->short_code }})</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-12 form-group">
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text" id="phone_code">+###</span>
+                                                <input type="text" class="form-control" name="phone" placeholder="Your Phone Number" required="">
+                                            </div>
                                         </div>
 
                                         <div class="col-md-12 form-group">
@@ -276,6 +288,14 @@
             }
         });
     });
+
+    selectCountry = () => {
+        var data = $('#country').val();
+        var splitData = data.split('|');
+        var country_name = splitData[0];
+        var country_code = splitData[1];
+        $('#phone_code').text(country_code);
+    }
 
 </script>
 @endsection

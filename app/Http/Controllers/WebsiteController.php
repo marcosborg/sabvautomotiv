@@ -10,6 +10,7 @@ use App\Models\Transmission;
 use App\Models\Year;
 use Illuminate\Http\Request;
 use App\Models\ContentPage;
+use App\Models\Country;
 use Illuminate\Support\Str;
 
 class WebsiteController extends Controller
@@ -24,8 +25,9 @@ class WebsiteController extends Controller
     {
 
         $vehicle = Vehicle::find($vehicle_id)->load('car_model.brand');
+        $countries = Country::all();
 
-        return view('website.vehicle', compact('vehicle'));
+        return view('website.vehicle', compact('vehicle', 'countries'));
     }
 
     public function page($cms_id, $slug)

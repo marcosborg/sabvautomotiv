@@ -41,6 +41,8 @@ class ContactNotification extends Notification
             ->greeting('Pedido de contacto no website')
             ->line('<p><strong>Nome: </strong>' . $this->request->name . '</p>')
             ->line('<p><strong>Email: </strong>' . $this->request->email . '</p>')
+            ->line('<p><strong>País: </strong>' . $this->request->country . '</p>')
+            ->line('<p><strong>Telefone: </strong>' . $this->request->phone . '</p>')
             ->line('<p><strong>Assunto: </strong>' . $this->request->subject . '</p>')
             ->line('<p><strong>Mensagem: </strong>' . $this->request->message . '</p>')
             ->salutation('SABV Automotive');
