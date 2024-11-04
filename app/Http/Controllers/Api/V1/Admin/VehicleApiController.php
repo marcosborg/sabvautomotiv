@@ -3,10 +3,6 @@
 namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Traits\MediaUploadingTrait;
-use App\Http\Requests\StoreVehicleRequest;
-use App\Http\Requests\UpdateVehicleRequest;
-use App\Http\Resources\Admin\VehicleResource;
 use App\Models\Vehicle;
 use Gate;
 use Illuminate\Http\Request;
@@ -14,64 +10,75 @@ use Symfony\Component\HttpFoundation\Response;
 
 class VehicleApiController extends Controller
 {
-    use MediaUploadingTrait;
-
-    public function index()
+    public function latestStock()
     {
-        abort_if(Gate::denies('vehicle_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return new VehicleResource(Vehicle::with(['car_model', 'year', 'fuel', 'transmission'])->get());
+        return Vehicle::orderBy('id', 'desc')->limit(8)->where('api', 1)->get()->load('car_model.brand');
     }
 
-    public function store(StoreVehicleRequest $request)
+    public function allCars($year_id, $fuel_id, $transmission_id)
     {
-        $vehicle = Vehicle::create($request->all());
+        $filter = [];
 
-        foreach ($request->input('photos', []) as $file) {
-            $vehicle->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('photos');
+        if ($year_id != 0) {
+            $filter['year_id'] = $year_id;
+        }
+        if ($fuel_id != 0) {
+            $filter['fuel_id'] = $fuel_id;
+        }
+        if ($transmission_id != 0) {
+            $filter['transmission_id'] = $transmission_id;
         }
 
-        return (new VehicleResource($vehicle))
-            ->response()
-            ->setStatusCode(Response::HTTP_CREATED);
+        $vehicles = Vehicle::orderBy('id', 'desc')
+            ->where($filter)
+            ->get()
+            ->load('car_model.brand');
+
+        return $vehicles;
     }
 
-    public function show(Vehicle $vehicle)
+    public function carsFromABrand($brand_id, $year_id, $fuel_id, $transmission_id)
     {
-        abort_if(Gate::denies('vehicle_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new VehicleResource($vehicle->load(['car_model', 'year', 'fuel', 'transmission']));
-    }
-
-    public function update(UpdateVehicleRequest $request, Vehicle $vehicle)
-    {
-        $vehicle->update($request->all());
-
-        if (count($vehicle->photos) > 0) {
-            foreach ($vehicle->photos as $media) {
-                if (! in_array($media->file_name, $request->input('photos', []))) {
-                    $media->delete();
-                }
-            }
+        $filter = [];
+        if ($year_id != 0) {
+            $filter['year_id'] = $year_id;
         }
-        $media = $vehicle->photos->pluck('file_name')->toArray();
-        foreach ($request->input('photos', []) as $file) {
-            if (count($media) === 0 || ! in_array($file, $media)) {
-                $vehicle->addMedia(storage_path('tmp/uploads/' . basename($file)))->toMediaCollection('photos');
-            }
+        if ($fuel_id != 0) {
+            $filter['fuel_id'] = $fuel_id;
+        }
+        if ($transmission_id != 0) {
+            $filter['transmission_id'] = $transmission_id;
         }
 
-        return (new VehicleResource($vehicle))
-            ->response()
-            ->setStatusCode(Response::HTTP_ACCEPTED);
+        return Vehicle::whereHas('car_model', function ($query) use ($brand_id) {
+            $query->where('brand_id', $brand_id);
+        })
+            ->where($filter)
+            ->orderBy('id', 'desc')
+            ->get()
+            ->load('car_model.brand');
     }
 
-    public function destroy(Vehicle $vehicle)
+    public function carsFromAModel($car_model_id, $year_id, $fuel_id, $transmission_id)
     {
-        abort_if(Gate::denies('vehicle_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $filter = [];
+        if ($year_id != 0) {
+            $filter['year_id'] = $year_id;
+        }
+        if ($fuel_id != 0) {
+            $filter['fuel_id'] = $fuel_id;
+        }
+        if ($transmission_id != 0) {
+            $filter['transmission_id'] = $transmission_id;
+        }
 
-        $vehicle->delete();
-
-        return response(null, Response::HTTP_NO_CONTENT);
+        return Vehicle::where([
+            'car_model_id' => $car_model_id
+        ])
+            ->where($filter)
+            ->orderBy('id', 'desc')
+            ->get()
+            ->load('car_model.brand');
     }
 }

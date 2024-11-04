@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Api\V1\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCarModelRequest;
-use App\Http\Requests\UpdateCarModelRequest;
-use App\Http\Resources\Admin\CarModelResource;
 use App\Models\CarModel;
 use Gate;
 use Illuminate\Http\Request;
@@ -13,44 +10,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CarModelApiController extends Controller
 {
-    public function index()
+    public function carModels($brand_id)
     {
-        abort_if(Gate::denies('car_model_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return new CarModelResource(CarModel::with(['brand'])->get());
+        if ($brand_id != 0) {
+            return CarModel::where('brand_id', $brand_id)->orderBy('name')->get();
+        } else {
+            return CarModel::orderBy('name')->get();
+        }
     }
 
-    public function store(StoreCarModelRequest $request)
+    public function carModel($car_model_id)
     {
-        $carModel = CarModel::create($request->all());
-
-        return (new CarModelResource($carModel))
-            ->response()
-            ->setStatusCode(Response::HTTP_CREATED);
-    }
-
-    public function show(CarModel $carModel)
-    {
-        abort_if(Gate::denies('car_model_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return new CarModelResource($carModel->load(['brand']));
-    }
-
-    public function update(UpdateCarModelRequest $request, CarModel $carModel)
-    {
-        $carModel->update($request->all());
-
-        return (new CarModelResource($carModel))
-            ->response()
-            ->setStatusCode(Response::HTTP_ACCEPTED);
-    }
-
-    public function destroy(CarModel $carModel)
-    {
-        abort_if(Gate::denies('car_model_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $carModel->delete();
-
-        return response(null, Response::HTTP_NO_CONTENT);
+        return CarModel::find($car_model_id);
     }
 }
